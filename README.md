@@ -10,6 +10,9 @@
   [Installations](#installations) &middot; 
   [API Endpoints](#api-endpoints) &middot; 
   [Tests](#tests) &middot; 
+  [Problem Approach] (#problem-approach) &middot;
+  [Other Possible Problem Approaches] &middot;
+  [TradeOffs] &middot;
   [Author](#author)
 
 
@@ -140,6 +143,45 @@
   $ npm run test
   ```
 
+## Problem Approach
+### Assumptions made: 
+    > Considering each store location as point
+    > Location service will find nearest based on simple plane geography and find nearest between two points without considering other geo data types like Polygon, Bounding Box, LineString
+    > System has to maintain stores information with considering CSV file as base data 
+     
+- With the stores data given already, I have chosen the approach and storing to Postgres database, which helps users to manage the stores list by adding/modifying/deleting stores on their own easily 
+- Since Postgres offers greater performance interms of querying geo locations data with the extension of PostGIS (https://medium.com/@tjukanov/why-should-you-care-about-postgis-a-gentle-introduction-to-spatial-databases-9eccd26bc42b), i have chosen Postgres.
+
+- For the use case of finding nearest existing store location with given zip (or) address location, below steps i have followed
+    > Geocode Given zip or address using Google geocode API (https://developers.google.com/maps/documentation/geocoding/intro). There is one more approach to get using OSM(open street maps).
+    > Using geocoded location coordinates(lat, lng), i am querying postgres table using PostGIS functions (`ST_Distance function`) 
+    > Returning the first accurate result which is sorted already and calculating distance from store location to given zip/address in given unit(mi|km)
+    > return formatted json to user 
+- Advantage of using PostGIS is, we can store any type of geolocation (Polygon, LineString) and find shortest distance with proper spatial indexing 
+- Advantage of this system, will be as a user, you can manage set of stores and we can extend the functionalities like below
+      1.) Finding nearest store within some range
+      2.) Finding set of stores which is near by and form a group of stores by city,state, country
+      3.) With Using PostGIS, it will be highly scalable which helps to execute queries faster
+      
+
+ ## Other Possible Problem Approaches
+         Since Postgres Querying will consider only Point based locations on plane, it will give shortest distance based on two coordinates.
+ So, considering other type of geometry models like Polygon, LineString which helps to identify the exact route from between two locations like google maps considering all streets. 
+
+ - Approach 1:
+      We can maintain full geographic location database in Postgres by migrating from OSM or using Pelias (https://github.com/pelias/pelias) with our set of stores informations and helps to find exact nearest store
+ - Approach 2:
+      Since we stored already store locations inside postgres, to find nearest store , we can query all store locations with given location and find the shortest distance and return the store using manual algorithm or any external library without PostGIS, which can help in limited set of data. Incase of huge data, calculating shortest distance will be slower
+
+
+                 
+## tradeoffs
+
+- There is a limitation of finding nearest store without considering different data types, since we are considering the location as plane 
+- Need manual installation and migration of geolocation data to SQL (which is not a tradeoff)
+
+
+    
 
 ## Author
 
