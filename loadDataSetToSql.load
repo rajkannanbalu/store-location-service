@@ -1,0 +1,50 @@
+LOAD CSV
+        FROM 'store-locations.csv'
+             WITH ENCODING iso-8859-1
+             (
+                name,
+                location,
+                address     [ null if blanks ],
+                city       [ null if blanks ],
+                state      [ null if blanks],
+                zipcode [ null if blanks ],
+                latitude,
+                longitude,
+                country  [ null if blanks ]                
+             )
+        INTO postgresql://rajkannan@localhost/stores
+        TARGET TABLE locations
+             (
+                name,location,address,city,state,zipcode,
+                latitude, longitude,
+                country
+             )
+        WITH skip header = 1,
+             drop indexes,             
+             fields terminated by ','
+
+        BEFORE LOAD DO
+          $$ ALTER ROLE raj SUPERUSER; $$,
+          $$ create extension IF NOT EXISTS  postgis; $$,
+          $$ create extension IF NOT EXISTS  postgis_topology; $$,
+          $$ drop table if exists locations; $$,
+          $$ drop sequence if exists counter; $$,
+          $$ create sequence counter; $$,          
+          $$ create table locations (     
+               id integer PRIMARY KEY DEFAULT nextval('counter'),
+               name text,
+               location text,
+               address text,
+               city text,
+               state text,
+               zipcode text,
+               latitude float8,
+               longitude float8,
+               geom geometry(POINT, 4326),
+               country text,
+               created_at timestamptz not null default 'now()',
+               updated_at timestamptz not null default 'now()'
+               );
+          $$
+         AFTER LOAD DO
+          $$ update locations set geom = ST_SetSRID(ST_MakePoint(longitude, latitude), 4326); $$;
