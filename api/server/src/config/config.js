@@ -4,22 +4,22 @@ require('dotenv').config();
 module.exports = {
 
   // If using onine database
-  development: {
-    database: 'nyrgcjgy',
-    username: 'nyrgcjgy',
-    password: 'DLpy30vgdjRQRMA87QseOLbskbrXRt1G',
-    host: 'hansken.db.elephantsql.com',
-    dialect: 'postgres'
-  },
-
-  // uncomment if you are using local database for developement
   // development: {
-  //   database: 'stores',
-  //   username: 'raj',
-  //   password: null,
-  //   host: '127.0.0.1',
+  //   database: 'nyrgcjgy',
+  //   username: 'nyrgcjgy',
+  //   password: 'DLpy30vgdjRQRMA87QseOLbskbrXRt1G',
+  //   host: 'hansken.db.elephantsql.com',
   //   dialect: 'postgres'
   // },
+
+  // uncomment if you are using local database for developement
+  development: {
+    database: 'stores',
+    username: 'raj',
+    password: null,
+    host: '127.0.0.1',
+    dialect: 'postgres'
+  },
   
 
   test: {

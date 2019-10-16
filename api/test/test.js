@@ -144,7 +144,7 @@ describe('Testing the Store API endpoints:', () => {
       });
   });
 
-  it("It Should return nearest store with given address and unit as km", (done) => {
+  it("It Should return nearest store with given address and unit as mi", (done) => {
     const address = '5537 W Broadway Ave'
     chai.request(app)
       .get(`/api/v1/closest?address=${address}&unit=mi`)
@@ -164,7 +164,7 @@ describe('Testing the Store API endpoints:', () => {
       });
   });
 
-  it("It Should return nearest store with given zip code and address and unit as km", (done) => {
+  it("It Should return bad request with given zip code and address and unit as km", (done) => {
     const address = '5537 W Broadway Ave'
     const zipCode = '55428-3507'
     chai.request(app)
@@ -173,6 +173,18 @@ describe('Testing the Store API endpoints:', () => {
       .end((err, res) => {
         expect(res.status).to.equal(400);
         expect(res.body.message).to.equal("Please input either valid zipcode or valid address in the query");              
+        done();
+      });
+  });
+
+  it("It Should return bad request with given zip code and address and invalid unit", (done) => {
+    const address = '5537 W Broadway Ave'    
+    chai.request(app)
+      .get(`/api/v1/closest?address=${address}&unit=kim`)
+      .set('Accept', 'application/json')      
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.message).to.equal("Please input valid unit");              
         done();
       });
   });

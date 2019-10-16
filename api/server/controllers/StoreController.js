@@ -4,6 +4,7 @@ import GeoLocationService from '../services/GeoLocationService';
 import _ from 'lodash';
 
 const util = new Util();
+const validUnits = ['mi','km']
 
 class StoreController {
   static async getAllStores(req, res) {
@@ -102,6 +103,11 @@ class StoreController {
     const { zip, address, unit } = req.query;
     let distanceUnit = 'mi' //default
 
+    if(!_.isEmpty(unit) && !validUnits.includes(unit.toLowerCase())) {
+      util.setError(400, new Error("Please input valid unit"));
+      return util.send(res);
+    } 
+
     if(_.isEmpty(zip) && _.isEmpty(address)) {
       util.setError(400, new Error("Please input  valid zipcode or valid address in the query"));
       return util.send(res);
@@ -117,7 +123,7 @@ class StoreController {
     const inputLocation = _.isEmpty(zip)?address:zip;
   
     if(!_.isEmpty(unit)) {
-      distanceUnit = unit;
+      distanceUnit = unit.toLowerCase();
     }
 
         
