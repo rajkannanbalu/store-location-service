@@ -1,12 +1,11 @@
 import axios from 'axios';
-const KEY = 'AIzaSyBTcwh9osQr5BJIDhmM8xbau5emg_cQEHI';
+const KEY = 'AIzaSyBTcwh9osQr5BJIDhmM8xbau5emg_cQEHI'; //Please don't use it for other projects. :-)
 
 class GeoLocationService {
 
     static async getGeoCodedData(searchQuery) {
         try {
-            const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchQuery}&key=${KEY}`;
-            console.log(url);
+            const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchQuery}&key=${KEY}`;            
         const response = await axios.get(url);        
             if(response.data.status == 'OK') {                
                 const geolocation =   response.data.results[0].geometry.location;                              
@@ -19,8 +18,7 @@ class GeoLocationService {
         }        
     }
 
-    static async findDistance(lat1, lon1, lat2, lon2, unit) {        
-            console.log(lat1, lon1, lat2, lon2);
+    static async findDistance(lat1, lon1, lat2, lon2, unit) {                    
             if ((lat1 == lat2) && (lon1 == lon2)) {
                 return 0;
             }

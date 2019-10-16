@@ -96,6 +96,7 @@
 - Create databases (stores, stores_test)
   > run the command below
   ```shell
+  $ initdb /usr/local/var/postgres
   $ createdb stores
   $ createdb stores_test
   ```
@@ -112,19 +113,24 @@
 
 ### Migrate Data to Postgresql
 - Configure Postgres superuser and user
-    -> open pgloader.ini and change
+    -> open [pgloader.ini](https://github.com/rajkannanbalu/store-location-service/blob/master/pgloader.ini) and change to your superuser name of postgres database
     ```   
-          SUPERUSER=${Your POSTGRES SuperUser}
-          USER=${YourFavouriteName(anything)}
+          SUPERUSER=${Your POSTGRES SuperUser name}          
     ```   
 - Migrate Data from CSV to PSQL 
   > Run the command below
   ```shell
   $ pgloader --context pgloader.ini sqlDev.load (development) (If you want to use local database for development purpose)
   $ pgloader --context pgloader.ini sqlTest.load (for test cases)
-  $ pgloader --context pgloader.ini sqlOnline.load (online) 
+  $ pgloader --context pgloader.ini sqlOnline.load (online)  (don't need if you want to create it from first)
   ```
 (Please note that, i have already moved data to online database using the above script)
+
+## How to Test
+- Use localhost:8000 as server host and use any endpoints mentioned in [API Endpoints](api_endpoints)
+- Change pgloader.ini to use your SUPERUSER name of postgres database
+- in [config.js](https://github.com/rajkannanbalu/store-location-service/blob/master/api/server/src/config/config.js), change the username according to your SUPERUSER name of postgres
+- run `npm run dev` and you can test the system
 
 ## API Endpoints
 

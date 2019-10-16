@@ -8,28 +8,12 @@ const { expect } = chai;
 
 describe('Testing the Store API endpoints:', () => {
   
-  it('It should get all stores', (done) => {
-    chai.request(app)
-      .get('/api/v1/closest/all')
-      .set('Accept', 'application/json')
-      .end((err, res) => {        
-        expect(res.status).to.equal(200);
-        expect(res.body.data.length).to.greaterThan(0);
-        res.body.data[0].should.have.property('name');
-        res.body.data[0].should.have.property('location');
-        res.body.data[0].should.have.property('geom');
-        res.body.data[0].should.have.property('country');
-        res.body.data[0].should.have.property('address');
-        res.body.data[0].should.have.property('city');
-        res.body.data[0].should.have.property('state');        
-        done();
-      });
-  });
+  
 
   it('It should add a new store', (done) => {    
     let storeToCreate = getStoreInfo();
     chai.request(app)
-      .post('/api/v1/closest')
+      .post('/v1/closest')
       .set('Accept', 'application/json')
       .send(storeToCreate)
       .end((err, res) => {
@@ -50,7 +34,7 @@ describe('Testing the Store API endpoints:', () => {
   it('It should not new store with empty data', (done) => {    
     let storeToCreate = {};
     chai.request(app)
-      .post('/api/v1/closest')
+      .post('/v1/closest')
       .set('Accept', 'application/json')
       .send(storeToCreate)
       .end((err, res) => {
@@ -60,12 +44,29 @@ describe('Testing the Store API endpoints:', () => {
       });
   });
 
+  it('It should get all stores', (done) => {
+    chai.request(app)
+      .get('/v1/closest/all')
+      .set('Accept', 'application/json')
+      .end((err, res) => {                
+        expect(res.body.data.length).to.greaterThan(0);
+        res.body.data[0].should.have.property('name');
+        res.body.data[0].should.have.property('location');
+        res.body.data[0].should.have.property('geom');
+        res.body.data[0].should.have.property('country');
+        res.body.data[0].should.have.property('address');
+        res.body.data[0].should.have.property('city');
+        res.body.data[0].should.have.property('state');        
+        done();
+      });
+  });
+
   it('It should not new store with few fields missing in input store data', (done) => {    
     let storeToCreate = {
       name: "test"
     };
     chai.request(app)
-      .post('/api/v1/closest')
+      .post('/v1/closest')
       .set('Accept', 'application/json')
       .send(storeToCreate)
       .end((err, res) => {
@@ -79,7 +80,7 @@ describe('Testing the Store API endpoints:', () => {
     const storeId = 1;
     let storeToUpdate = getStoreInfo();
     chai.request(app)
-      .put(`/api/v1/closest/${storeId}`)
+      .put(`/v1/closest/${storeId}`)
       .set('Accept', 'application/json')
       .send(storeToUpdate)
       .end((err, res) => {
@@ -100,7 +101,7 @@ describe('Testing the Store API endpoints:', () => {
     const storeId = 112121;
     let storeToUpdate = getStoreInfo();
     chai.request(app)
-      .put(`/api/v1/closest/${storeId}`)
+      .put(`/v1/closest/${storeId}`)
       .set('Accept', 'application/json')
       .send(storeToUpdate)
       .end((err, res) => {
@@ -114,7 +115,7 @@ describe('Testing the Store API endpoints:', () => {
     const storeId = "12w11dadss";
     let storeToUpdate = getStoreInfo();
     chai.request(app)
-      .put(`/api/v1/closest/${storeId}`)
+      .put(`/v1/closest/${storeId}`)
       .set('Accept', 'application/json')
       .send(storeToUpdate)
       .end((err, res) => {
@@ -127,7 +128,7 @@ describe('Testing the Store API endpoints:', () => {
   it("It Should return nearest store with given zip code and unit as km", (done) => {
     const zipCode = '55428-3507'
     chai.request(app)
-      .get(`/api/v1/closest?zip=${zipCode}&unit=km`)
+      .get(`/v1/closest?zip=${zipCode}&unit=km`)
       .set('Accept', 'application/json')      
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -147,7 +148,7 @@ describe('Testing the Store API endpoints:', () => {
   it("It Should return nearest store with given address and unit as mi", (done) => {
     const address = '5537 W Broadway Ave'
     chai.request(app)
-      .get(`/api/v1/closest?address=${address}&unit=mi`)
+      .get(`/v1/closest?address=${address}&unit=mi`)
       .set('Accept', 'application/json')      
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -168,7 +169,7 @@ describe('Testing the Store API endpoints:', () => {
     const address = '5537 W Broadway Ave'
     const zipCode = '55428-3507'
     chai.request(app)
-      .get(`/api/v1/closest?address=${address}&zip=${zipCode}&unit=mi`)
+      .get(`/v1/closest?address=${address}&zip=${zipCode}&unit=mi`)
       .set('Accept', 'application/json')      
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -180,7 +181,7 @@ describe('Testing the Store API endpoints:', () => {
   it("It Should return bad request with given zip code and address and invalid unit", (done) => {
     const address = '5537 W Broadway Ave'    
     chai.request(app)
-      .get(`/api/v1/closest?address=${address}&unit=kim`)
+      .get(`/v1/closest?address=${address}&unit=kim`)
       .set('Accept', 'application/json')      
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -191,7 +192,7 @@ describe('Testing the Store API endpoints:', () => {
 
   it("It Should return nearest store with no query parameters", (done) => {
     chai.request(app)
-      .get(`/api/v1/closest`)
+      .get(`/v1/closest`)
       .set('Accept', 'application/json')      
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -203,7 +204,7 @@ describe('Testing the Store API endpoints:', () => {
   it("It Should return error with invalid zip code", (done) => {
     const zipCode = '121212'
     chai.request(app)
-      .get(`/api/v1/closest?zip=${zipCode}&unit=mi`)
+      .get(`/v1/closest?zip=${zipCode}&unit=mi`)
       .set('Accept', 'application/json')      
       .end((err, res) => {
         expect(res.status).to.equal(500);
@@ -215,7 +216,7 @@ describe('Testing the Store API endpoints:', () => {
   it("It should delete the store with given valid id", (done) => {
     const storeId = 1;
     chai.request(app)
-    .delete(`/api/v1/closest/${storeId}`)
+    .delete(`/v1/closest/${storeId}`)
     .set('Accept', 'application/json')
     .end((err, res) => {
       expect(res.status).to.equal(200);
@@ -227,7 +228,7 @@ describe('Testing the Store API endpoints:', () => {
   it("It should delete the store with given valid id", (done) => {
     const storeId = 2000;
     chai.request(app)
-    .delete(`/api/v1/closest/${storeId}`)
+    .delete(`/v1/closest/${storeId}`)
     .set('Accept', 'application/json')
     .end((err, res) => {
       expect(res.status).to.equal(400);
@@ -239,7 +240,7 @@ describe('Testing the Store API endpoints:', () => {
   it("It should delete the store with given valid id", (done) => {
     const storeId = "!212";
     chai.request(app)
-    .delete(`/api/v1/closest/${storeId}`)
+    .delete(`/v1/closest/${storeId}`)
     .set('Accept', 'application/json')
     .end((err, res) => {
       expect(res.status).to.equal(400);
