@@ -41,7 +41,7 @@
 
 - Clone this project to your local machine `git@github.com:rajkannanbalu/store-location-service.git`
 
-#### prerequisite (only for testing and if needed run for dev also)
+#### Prerequisite (only for testing and if needed run for dev also)
 (Since I am using Online database for development server, for running test cases, you need to install the below tools in your local machine)
 - Install postgresql
  > Run the command below
@@ -100,7 +100,7 @@
   ```
 (Note: For running server, it uses online database. If you want to use local database(stores), please change config.js development object)
 
-- Get superuse of postgres
+- Get superuser of postgres
   > run the command below
   ```shell
   $ psql postgres
@@ -112,14 +112,15 @@
 ### Migrate Data to Postgresql
 - Configure Postgres superuser and user
     -> open pgloader.ini and change
-    ```   SUPERUSER=${Your POSTGRES SuperUser}
+    ```   
+          SUPERUSER=${Your POSTGRES SuperUser}
           USER=${YourFavouriteName(anything)}
     ```   
 - Migrate Data from CSV to PSQL 
   > Run the command below
   ```shell
-  $ pgloader --context pgloader.ini sqlDev.load (development)
-  $ pgloader --context pgloader.ini sqlTest.load (test)
+  $ pgloader --context pgloader.ini sqlDev.load (development) (If you want to use local database for development purpose)
+  $ pgloader --context pgloader.ini sqlTest.load (for test cases)
   $ pgloader --context pgloader.ini sqlOnline.load (online) 
   ```
 (Please note that, i have already moved data to online database using the above script)
@@ -142,6 +143,9 @@
   ```shell
   $ npm run test
   ```
+
+## Coverage
+- See the code coverage from /coverage/index.html
 
 ## Problem Approach
 ### Assumptions made: 
