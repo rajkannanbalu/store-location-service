@@ -16,7 +16,6 @@ class StoreController {
       }
       return util.send(res);
     } catch (error) {
-        console.log(error)
       util.setError(400, error);
       return util.send(res);
     }
@@ -93,8 +92,7 @@ class StoreController {
         util.setSuccess(200, 'Store updated', updatedStore);
       }
       return util.send(res);
-    } catch (error) {
-        console.log(error);
+    } catch (error) {        
       util.setError(404, error);
       return util.send(res);
     }
@@ -124,8 +122,7 @@ class StoreController {
 
         
     try {
-      const geolocation =  await GeoLocationService.getGeoCodedData(inputLocation);
-      console.log(`Got geolocation for the query from geocode API`);
+      const geolocation =  await GeoLocationService.getGeoCodedData(inputLocation);      
       const nearestStore = await StoreService.getNearestStore(geolocation);
 
       if (!nearestStore || _.isEmpty(nearestStore) || nearestStore.length<=0) {
@@ -141,8 +138,7 @@ class StoreController {
         util.setSuccess(200, `Found Nearest Store within ${distance.toFixed(2).toString() + distanceUnit }`, response);
       }
       return util.send(res);
-    } catch (error) {      
-      console.log(error)
+    } catch (error) {            
       util.setError(500, error);
       return util.send(res);
     }

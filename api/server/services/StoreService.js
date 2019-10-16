@@ -50,8 +50,7 @@ class StoreService {
         const store = await database.locations.findAll(query);        
 
       return store;
-    } catch (error) {
-      console.log(error);
+    } catch (error) {      
       throw error;
     }
   }
