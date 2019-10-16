@@ -145,9 +145,9 @@
   ```
 
 ## Coverage
-- See the code coverage from /coverage/index.html
+- See the [code coverage](https://github.com/rajkannanbalu/store-location-service/blob/master/coverage/index.html
 
-## Problem Approach
+## Problem Approach:
 ### Assumptions made: 
     > Considering each store location as point
     > Location service will find nearest based on simple plane geography and find nearest between two points without considering other geo data types like Polygon, Bounding Box, LineString
