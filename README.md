@@ -10,8 +10,8 @@
   [Installations](#installations) &middot; 
   [API Endpoints](#api-endpoints) &middot; 
   [Tests](#tests) &middot; 
-  [Problem Approach] (#problem-approach) &middot;
-  [Other Possible Problem Approaches] &middot;
+  [Problem Approach](#problem-approach) &middot;
+  [Other Possible Problem Approaches](#other-possible-problem-approaches) &middot;
   [TradeOffs] &middot;
   [Author](#author)
 
@@ -147,7 +147,7 @@
 ## Coverage
 - See the [code coverage](https://github.com/rajkannanbalu/store-location-service/blob/master/coverage/index.html :smiley:
 
-## Problem Approach: :smiley:
+## Problem Approach :smiley:
 ### Assumptions made: 
     > Considering each store location as point
     > Location service will find nearest based on simple plane geography and find nearest between two points without considering other geo data types like Polygon, Bounding Box, LineString
@@ -162,10 +162,11 @@
     * Returning the first accurate result which is sorted already and calculating distance from store location to given zip/address in given unit(mi|km)
     ..* return formatted json to user 
 - Advantage of using PostGIS is, we can store any type of geolocation (Polygon, LineString) and find shortest distance with proper spatial indexing 
-- Advantage of this system, will be as a user, you can manage set of stores and we can extend the functionalities like below
-      1.) Finding nearest store within some range
-      2.) Finding set of stores which is near by and form a group of stores by city,state, country
-      3.) With Using PostGIS, it will be highly scalable which helps to execute queries faster
+- Advantage of this system, will be as a user, you can manage set of stores and we can extend the functionalities like below:
+
+      * Finding nearest store within some range
+      * Finding set of stores which is near by and form a group of stores by city,state, country
+      * With Using PostGIS, it will be highly scalable which helps to execute queries faster
       
 
  ## Other Possible Problem Approaches :zzz:
