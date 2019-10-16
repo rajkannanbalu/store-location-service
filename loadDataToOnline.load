@@ -12,7 +12,7 @@ LOAD CSV
                 longitude,
                 country  [ null if blanks ]                
              )
-        INTO postgresql://{{SUPERUSER}}@localhost/stores_test
+        INTO postgres://nyrgcjgy:DLpy30vgdjRQRMA87QseOLbskbrXRt1G@hansken.db.elephantsql.com:5432/nyrgcjgy
         TARGET TABLE locations
              (
                 name,location,address,city,state,zipcode,
@@ -23,10 +23,7 @@ LOAD CSV
              drop indexes,             
              fields terminated by ','
 
-        BEFORE LOAD DO
-          $$ ALTER ROLE {{USER}} SUPERUSER; $$,
-          $$ create extension IF NOT EXISTS  postgis; $$,
-          $$ create extension IF NOT EXISTS  postgis_topology; $$,
+        BEFORE LOAD DO                    
           $$ drop table if exists locations; $$,
           $$ drop sequence if exists counter; $$,
           $$ create sequence counter; $$,          
