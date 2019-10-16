@@ -8,7 +8,7 @@
 > [[Technologies](#technologies-used) &middot; 
   [Testing Tools](#testing-tools) &middot; 
   [Installations](#installations) &middot; 
-  [Prerequisite](##prerequisite-only-for-testing-and-if-needed-run-for-dev-also) $middot;
+  [Prerequisite](#prerequisite-only-for-testing-and-if-needed-run-for-dev-also) &middot;
   [API Endpoints](#api-endpoints) &middot; 
   [Tests](#tests) &middot; 
   [Coverage](#coverage) &middot;
@@ -138,7 +138,7 @@
 | ------ | --------------------------------------- | ------------------------- |
 | POST   | Add new store                           | `/v1/closest`           |
 | GET    | Get all stores                        | `/v1/closest/all`           |
-| GET    | Get nearest store                        |  `/v1/closest?zip|address|unit`|
+| GET    | Get nearest store  (zip | address | unit)                      |  `/v1/closest?zip|address|unit`|
 | PUT    | Update the details of a store            | `/v1/closest/:storeId`   |
 | DELETE | Remove a store                           | `/v1/closest/:storeId`   |
 
