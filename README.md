@@ -138,7 +138,7 @@
 | ------ | --------------------------------------- | ------------------------- |
 | POST   | Add new store                           | `/v1/closest`           |
 | GET    | Get all stores                        | `/v1/closest/all`           |
-| GET    | Get nearest store                        | `/v1/closest?zip|address|unit`           |
+| GET    | Get nearest store                        |  `/v1/closest?zip|address|unit`|
 | PUT    | Update the details of a store            | `/v1/closest/:storeId`   |
 | DELETE | Remove a store                           | `/v1/closest/:storeId`   |
 
