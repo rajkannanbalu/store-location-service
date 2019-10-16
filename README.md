@@ -8,12 +8,13 @@
 > [[Technologies](#technologies-used) &middot; 
   [Testing Tools](#testing-tools) &middot; 
   [Installations](#installations) &middot; 
+  [Prerequisite](##prerequisite-only-for-testing-and-if-needed-run-for-dev-also) $middot;
   [API Endpoints](#api-endpoints) &middot; 
   [Tests](#tests) &middot; 
-  [Problem Approach](#problem-approach) &middot;
-  [Other Possible Problem Approaches](#other-possible-problem-approaches) &middot;
-  [TradeOffs] &middot;
-  [Author](#author)
+  [Coverage](#coverage) &middot;
+  [Problem Approach](#problem-approach-smiley) &middot;
+  [Other Possible Problem Approaches](#other-possible-problem-approaches-zzz) &middot;
+  [TradeOffs](#tradeoffs) &middot;  
 
 
 ## Technologies Used
@@ -180,7 +181,7 @@
 
 
                  
-## tradeoffs :worried:
+## tradeoffs
  
 - There is a limitation of finding nearest store without considering different data types, since we are considering the location as plane 
 - Need manual installation and migration of geolocation data to SQL (which is not a tradeoff)
