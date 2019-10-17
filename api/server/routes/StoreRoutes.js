@@ -7,7 +7,7 @@ const router = Router();
 
 
 
-router.get('/', StoreController.getNearestStore);
+router.get('/closest', StoreController.getNearestStore);
 router.post('/', StoreController.addStore);
 router.put('/:id', StoreController.updateStore);
 router.get('/all', StoreController.getAllStores);

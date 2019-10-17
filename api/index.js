@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 8000;
 
-app.use('/v1/closest', storeRoutes);
+app.use('/v1/store', storeRoutes);
 
 app.get('/health', (req, res) => res.status(200).send({
   message: 'GeoLocationServer is healthy',

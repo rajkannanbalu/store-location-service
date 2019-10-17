@@ -136,11 +136,11 @@
 
 | METHOD | DESCRIPTION                             | ENDPOINTS                 |
 | ------ | --------------------------------------- | ------------------------- |
-| POST   | Add new store                           | `/v1/closest`           |
-| GET    | Get all stores                        | `/v1/closest/all`           |
-| GET    | Get nearest store                      |  `/v1/closest?zip or address or unit`|
-| PUT    | Update the details of a store            | `/v1/closest/:storeId`   |
-| DELETE | Remove a store                           | `/v1/closest/:storeId`   |
+| POST   | Add new store                           | `/v1/store`           |
+| GET    | Get all stores                        | `/v1/store/all`           |
+| GET    | Get nearest store                      |  `/v1/store/closest?zip or address or unit`|
+| PUT    | Update the details of a store            | `/v1/store/:storeId`   |
+| DELETE | Remove a store                           | `/v1/store/:storeId`   |
 
 
 ## Tests
